@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Task History</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Activity History</h1>
+    <ul>
+      {% for entry in history %}
+        <li class="task-card">
+          <span class="task-title">
+            <strong>{{ entry.task_title }}</strong> — {{ entry.get_action_display }}
+          </span>
+          <span style="font-size:12px; color:#888;">
+            {{ entry.timestamp|date:"M d, Y H:i" }}
+          </span>
+        </li>
+      {% empty %}
+        <li class="empty-state">No activity yet.</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'task_list' %}" class="back-link">← Back to tasks</a>
+  </div>
+</body>
+</html>
